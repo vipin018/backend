@@ -1,7 +1,22 @@
-const http = require('http');
+const express = require("express")
 
-const server = http.createServer((req, res) => {
-    res.end("hellow world!!");
+const app = express();
+
+app.set("view engine", 'ejs');
+
+app.use((req, res, next) => {
+    console.log("this is middleware");
+    res.send("middleware")
 })
 
-server.listen(1800);
+app.get("/", (req, res) => {
+    res.render('index');
+})
+app.get("/about", (req, res) => {
+    res.send("THIS IS ABOUT PAGE");
+})
+app.get("/profile", (req, res) => {
+    res.send("THIS IS PROFILE PAGE");
+})
+
+app.listen(3000);
